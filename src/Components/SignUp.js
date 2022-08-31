@@ -4,7 +4,6 @@ import {useState} from 'react';
 const SignUp= ()=>{
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-
     // Set state for email
 
     const handleEmailChange=(e)=>{
@@ -17,13 +16,14 @@ const SignUp= ()=>{
         setPassword(e.target.value);
     }
 
-    const handleSubmit = ()=>{
+    const handleSubmit = (e)=>{
+        e.preventDefault();
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
-            console.log('user is', userCredential.user)   // ...
+            console.log("user is", userCredential.user);   // ...
             })
             .catch((error) => {
             const errorCode = error.code;
@@ -41,7 +41,7 @@ const SignUp= ()=>{
       </ul>
 
       <form onSubmit={handleSubmit}>
-          <label for="email"></label>
+          <label htmlFor="email"></label>
           <input onChange ={handleEmailChange} type="email" id="email" placeholder="eg. xxxx@gmail.com" value={email}/>
           <label for="email"></label>
           <input onChange = {handlePasswordChange} type="password" id="password" value={password}/>
