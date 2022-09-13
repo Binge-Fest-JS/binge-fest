@@ -1,7 +1,8 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 const SignUp= ()=>{
+    let navigate=useNavigate();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     // Set state for email
@@ -18,16 +19,23 @@ const SignUp= ()=>{
 
     const handleSubmit = (e)=>{
         e.preventDefault();
+        console.log('create user event', e);
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
             console.log("user is", userCredential.user);   // ...
+            navigate('/signIn', { replace: true });
             })
             .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                  alert(`Email address ${email} already in use.`);
+                  break;
+            }
              // ..
         });
         console.log('submit worked')
@@ -46,7 +54,7 @@ const SignUp= ()=>{
           <input onChange ={handleEmailChange} type="email" id="email" placeholder="eg. xxxx@gmail.com" value={email}/>
           <label for="email"></label>
           <input onChange = {handlePasswordChange} type="password" id="password" value={password}/>
-          <Link to = '/signIn'><button>Sign Up</button></Link>
+        <button>Sign Up</button>
           
       </form>
       </>

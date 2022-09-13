@@ -1,15 +1,17 @@
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged  } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, getAdditionalUserInfo  } from "firebase/auth";
+import { useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import { Link, Routes, Route, useNavigate} from "react-router-dom";
 import HomePage from "./HomePage.js";
+import ErrorComponent from "./ErrorComponent";
 
 
-const  SignIn = ()=>{
+
+const  SignIn = (props)=>{
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('')
   const [currentUser,setCurrentUser] = useState('');
-
+  const [error,setError]=useState("")
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const  SignIn = ()=>{
       } else {
         // User is signed out
         // ...
-        alert('not signedin')
+      
       }
     });
   },[currentUser])
@@ -53,28 +55,42 @@ const handleSubmit = (e) => {
      
       const user = userCredential.user;
       setCurrentUser(user)
+
+      props.userSignIn(user);
       console.log(user, 'user');
       // ...
-      navigate("/homepage", { replace: true });
+      navigate('/homepage', { replace: true });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      setError(error.message)
+      
+      // switch (error.code){
+      // case 'auth/invalid-email':
+      //     alert(`Email address ${email} is invalid.`);
+      //     break;
+      
+      // }
     });
 }
 
   return (
     <>
       <h2>Sign In</h2>
+      
+      {error && <ErrorComponent></ErrorComponent>}
+   
+    {
+      !error && (
       <form onSubmit={handleSubmit}>
         <label htmlFor="email"></label>
         <input onChange={handleEmailChange} type="email" id="currentEmail" placeholder="Email"/>
         <label for="email"></label>
         <input onChange = {handlePasswordChange} type="password" id="currentPassword" placeholder="Password" value={password}/>
        <button>SignIn</button>
-      
       </form>
-     
+      )}
     </>
   );
 }
