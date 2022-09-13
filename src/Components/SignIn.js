@@ -1,13 +1,16 @@
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged  } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, Routes, Route, useNavigate} from "react-router-dom";
+import HomePage from "./HomePage.js";
 
 
 const  SignIn = ()=>{
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('')
   const [currentUser,setCurrentUser] = useState('');
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -39,15 +42,20 @@ const  SignIn = ()=>{
     }
 
 const handleSubmit = (e) => {
+ 
   e.preventDefault();
   const auth = getAuth();
+
   signInWithEmailAndPassword(auth, email, password)
+
     .then((userCredential) => {
       // Signed in
+     
       const user = userCredential.user;
       setCurrentUser(user)
       console.log(user, 'user');
       // ...
+      navigate("/homepage", { replace: true });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -63,8 +71,10 @@ const handleSubmit = (e) => {
         <input onChange={handleEmailChange} type="email" id="currentEmail" placeholder="Email"/>
         <label for="email"></label>
         <input onChange = {handlePasswordChange} type="password" id="currentPassword" placeholder="Password" value={password}/>
-        <button>SignIn</button>
+       <button>SignIn</button>
+      
       </form>
+     
     </>
   );
 }

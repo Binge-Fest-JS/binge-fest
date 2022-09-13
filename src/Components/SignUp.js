@@ -30,6 +30,7 @@ const SignUp= ()=>{
             const errorMessage = error.message;
              // ..
         });
+        console.log('submit worked')
     }
   return (
       <>
@@ -45,7 +46,7 @@ const SignUp= ()=>{
           <input onChange ={handleEmailChange} type="email" id="email" placeholder="eg. xxxx@gmail.com" value={email}/>
           <label for="email"></label>
           <input onChange = {handlePasswordChange} type="password" id="password" value={password}/>
-          <button>Sign Up</button>
+          <Link to = '/signIn'><button>Sign Up</button></Link>
           
       </form>
       </>
