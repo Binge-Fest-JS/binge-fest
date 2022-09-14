@@ -78,11 +78,19 @@ const handleSubmit = (e) => {
   return (
     <>
       <h2>Sign In</h2>
+      <Link to = '/'>Home</Link>
+      {error && <ErrorComponent></ErrorComponent>
+       
       
-      {error && <ErrorComponent></ErrorComponent>}
-   
+      
+      
+      }
+    
+  
     {
+      
       !error && (
+    
       <form onSubmit={handleSubmit}>
         <label htmlFor="email"></label>
         <input onChange={handleEmailChange} type="email" id="currentEmail" placeholder="Email"/>
