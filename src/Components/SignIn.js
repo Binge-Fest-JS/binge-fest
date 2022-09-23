@@ -81,9 +81,6 @@ const handleSubmit = (e) => {
       <Link to = '/'>Home</Link>
       {error && <ErrorComponent></ErrorComponent>
        
-      
-      
-      
       }
     
   

@@ -1,12 +1,13 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {Link, useNavigate} from 'react-router-dom';
 import {useState} from 'react';
+
 const SignUp= ()=>{
     let navigate=useNavigate();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
-    // Set state for email
-
+    
+    // Set state for email and password
     const handleEmailChange=(e)=>{
         e.preventDefault();
         setEmail(e.target.value);
@@ -35,10 +36,8 @@ const SignUp= ()=>{
                 case 'auth/email-already-in-use':
                   alert(`Email address ${email} already in use.`);
                   break;
-            }
-             // ..
+            } 
         });
-        console.log('submit worked')
     }
   return (
       <>
@@ -50,13 +49,12 @@ const SignUp= ()=>{
       </ul>
 
       <form onSubmit={handleSubmit}>
-          <label htmlFor="email"></label>
-          <input onChange ={handleEmailChange} type="email" id="email" placeholder="eg. xxxx@gmail.com" value={email}/>
-          <label for="email"></label>
-          <input onChange = {handlePasswordChange} type="password" id="password" value={password}/>
+        <label htmlFor="email"></label>
+        <input onChange ={handleEmailChange} type="email" id="email" placeholder="eg. xxxx@gmail.com" value={email}/>
+        <label htmlFor="email"></label>
+        <input onChange = {handlePasswordChange} type="password" id="password" value={password}/>
         <button>Sign Up</button>
-          
-      </form>
+     </form>
       </>
   )
 }

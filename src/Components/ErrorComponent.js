@@ -4,7 +4,7 @@ const ErrorComponent = ()=>{
     return(
         <>
             <p>Something went wrong</p>
-            <Link to="/signIn">Try Again</Link>
+            <Link to="/">Try Again</Link>
         </>
     )
 }

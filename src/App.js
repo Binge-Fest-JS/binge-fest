@@ -13,24 +13,17 @@ function App() {
   const getUser=(user)=>{
     setUser(user);
   }
+  
   return (
     <>
-     
-   
       <Routes>
-      <Route path = '/' element = {<LoginSignUp/>}/>
-       <Route path = '/signUp' element = {<SignUp/>}/>
-       <Route path = '/signIn' element = {<SignIn userSignIn={getUser}/>}/>
-       <Route path = '/homepage' element = {<HomePage currentUser={user}/>}/>
+        <Route path = '/' element = {<LoginSignUp/>}/>
+        <Route path = '/signUp' element = {<SignUp/>}/>
+        <Route path = '/signIn' element = {<SignIn userSignIn={getUser}/>}/>
+        <Route path = '/homepage' element = {<HomePage currentUser={user}/>}/>
      </Routes>
     
     </>
-
-
-
-
-
-
   );
 }
 
